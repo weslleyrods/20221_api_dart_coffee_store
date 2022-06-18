@@ -24,13 +24,19 @@ mongoose
 
 // routes
 const routerCliente = require("./routes/routerCliente");
-/* const routerProduto = require("./routes/routerProduto");
-const routerCarrinho = require("./routes/routerCarrinho"); */
+const routerProduto = require("./routes/routerProduto");
+/*const routerCarrinho = require("./routes/routerCarrinho"); */
 
 const port = process.env.PORT || 3000;
 app.set("port", port);
 
+// endpoint de imagens
+/* app.get("/foto/:nomeImg", (req, res) => {
+  res.sendFile(__dirname + "/image/" + req.params.nomeImg);
+}); */
+
 app.use("/cliente", routerCliente);
+app.use("/produto", routerProduto);
 /* app.use("/produto", routerProduto);
 app.use("/carrinho", routerCarrinho); */
 

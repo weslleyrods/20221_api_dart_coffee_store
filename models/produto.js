@@ -3,14 +3,14 @@ const mongoose = require("mongoose");
 const produtoSchema = mongoose.Schema({
   titulo: { type: String, required: true },
   descricao: { type: String, required: true },
-  valor: { type: number, required: true },
-  qtd: { type: number, required: true },
+  valor: { type: String, required: true },
+  qtd: { type: String, required: true },
   atributos: {
-    torra: { type: number, required: true },
-    corpo: { type: number, required: true },
-    amargor: { type: number, required: true },
-    acidez: { type: number, required: true },
-    aroma: { type: number, required: true },
+    torra: { type: String, required: false },
+    corpo: { type: String, required: false },
+    amargor: { type: String, required: false },
+    acidez: { type: String, required: false },
+    aroma: { type: String, required: false },
   },
   categoria: { type: String, required: true },
 });
