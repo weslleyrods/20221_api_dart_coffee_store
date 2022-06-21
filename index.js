@@ -35,7 +35,15 @@ app.set("port", port);
 /* app.get("/foto/:nomeImg", (req, res) => {
   res.sendFile(__dirname + "/image/" + req.params.nomeImg);
 }); */
-
+app.use("/", (req, res) => {
+  res.json({
+    status: "OK",
+    rotas: {
+      produto: "/produto/",
+      cliente: "/cliente/",
+    },
+  });
+});
 app.use("/cliente", routerCliente);
 app.use("/produto", routerProduto);
 /* app.use("/produto", routerProduto);
