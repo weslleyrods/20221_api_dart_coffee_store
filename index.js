@@ -35,7 +35,7 @@ app.set("port", port);
 /* app.get("/foto/:nomeImg", (req, res) => {
   res.sendFile(__dirname + "/image/" + req.params.nomeImg);
 }); */
-app.use("/", (req, res) => {
+app.get("/", (req, res) => {
   res.json({
     status: "OK",
     rotas: {

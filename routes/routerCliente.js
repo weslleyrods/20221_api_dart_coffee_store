@@ -1,13 +1,14 @@
 const express = require("express");
 const { default: mongoose } = require("mongoose");
 const router = express.Router();
+const cors = require("cors");
 
 // model
 const Cliente = require("../models/cliente");
 
 // aceitar json np corpo(body) da requisicao
 router.use(express.json());
-
+router.use(cors());
 //Luan
 router.get("/:id", (req, res) => {
   // pegar informacoes de um usuario
