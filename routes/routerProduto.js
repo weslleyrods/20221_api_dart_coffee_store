@@ -1,10 +1,11 @@
 const express = require("express");
-const produto = require("../models/produto");
 const router = express.Router();
+const cors = require("cors");
 
 const Produto = require("../models/produto");
 router.use(express.json());
 router.use(express.query());
+router.use(cors());
 // router.set("query parser", "simple");
 
 router.get("/", (req, res) => {

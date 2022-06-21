@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 const http = require("http");
 const mongoose = require("mongoose");
+const cors = require("cors");
 
 const {
   MONGODB_USER,
@@ -42,6 +43,7 @@ app.use("/carrinho", routerCarrinho); */
 
 // aceitar json np corpo(body) da requisicao
 app.use(express.json());
+app.use(cors());
 
 const server = http.createServer(app);
 server.listen(port);
