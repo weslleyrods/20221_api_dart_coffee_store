@@ -57,7 +57,7 @@ router.post("/cadastro", (req, res) => {
       cliente.save().then((clienteInserido) => {
         res.status(201).json({
           success: true,
-          data: clienteInserido,
+          data: clienteInserido._id,
         });
       });
     } else {
