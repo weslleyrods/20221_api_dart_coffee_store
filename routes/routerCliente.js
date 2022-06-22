@@ -1,5 +1,4 @@
 const express = require("express");
-const { default: mongoose } = require("mongoose");
 const router = express.Router();
 const cors = require("cors");
 
@@ -31,6 +30,7 @@ router.get("/:id", (req, res) => {
 //Weslley
 router.post("/cadastro", (req, res) => {
   // cadastrar um usuario
+  console.log(req.body);
   const cliente = new Cliente({
     //...req.body
     nome: req.body.nome,
