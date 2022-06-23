@@ -27,6 +27,42 @@ router.get("/:id", (req, res) => {
     });
 });
 
+//1º criar rota post para login
+router.post("/login", (req, res) => {
+  //2º pegar o objeto json do body que possui email e senha
+  email = req.body.email;
+  senha = req.body.senha;
+
+  //3º busca no mongo, com o model Cliente, o cliente com o email que foi informado
+  Cliente.findOne({ email: email })
+    .then((doc) => {
+      //4º se o documento existir , comparar a senha passada no body com a senha contida no documento do cliente;
+      if (senha === doc.senha) {
+        //5º caso a senha bata, retornar sucesso true e  id do usuario dentro do json data
+        res.json({
+          success: true,
+          data: {
+            id: doc._id,
+            nome: doc.nome,
+          },
+        });
+      } else {
+        //6º caso a senha não bata, retornar false e falar que email ou senha estão incorretos
+        res.json({
+          success: false,
+          message: "Dados inválidos, confira e-mail e senha.",
+        });
+      }
+    })
+    .catch((err) => {
+      //7º se o documento do cliente não existir, informar o mesmo do passo 6º
+      res.json({
+        success: false,
+        message: "Dados inválidos, confira e-mail e senha." + err,
+      });
+    });
+});
+
 //Weslley
 router.post("/cadastro", (req, res) => {
   // cadastrar um usuario
@@ -129,14 +165,6 @@ router.delete("/remover/:id", (req, res) => {
       }); //;
       //res.redirect("/router/usuario"); //confirmar se é esse caminho mesmo //redireciona para a URL derivada do caminho especificado
     });
-
-  /*
-  // delete do Bossini
-      Cliente.deleteOne({_id: req.params.id})
-      .then((resultado) => {
-          console.log(resultado)
-          res.status(200).end()    
- */
 });
 
 module.exports = router;
