@@ -63,7 +63,7 @@ router.post("/cadastro", (req, res) => {
     } else {
       res.status(500).json({
         success: false,
-        message: "O usuário já foi criado",
+        message: "O usuário já pussui cadastro com este CPF",
       });
     }
   });
