@@ -175,15 +175,13 @@ router.delete("/remover/:id", (req, res) => {
       res.status(201).json({
         success: true,
         message: req.params.id,
-      }); //;
-      //res.redirect("/router/usuario"); //confirmar se é esse caminho mesmo  //redireciona para a URL derivada do caminho especificado
+      });
     })
     .catch((err) => {
       res.status(500).json({
         success: false,
         message: err,
-      }); //;
-      //res.redirect("/router/usuario"); //confirmar se é esse caminho mesmo //redireciona para a URL derivada do caminho especificado
+      });
     });
 });
 

@@ -26,7 +26,7 @@ mongoose
 // routes
 const routerCliente = require("./routes/routerCliente");
 const routerProduto = require("./routes/routerProduto");
-/*const routerCarrinho = require("./routes/routerCarrinho"); */
+const routerCarrinho = require("./routes/routerCarrinho");
 const routerImagem = require("./routes/routerImagem");
 
 const port = process.env.PORT || 3000;
@@ -43,8 +43,7 @@ app.get("/", (req, res) => {
 });
 app.use("/cliente", routerCliente);
 app.use("/produto", routerProduto);
-/*
-app.use("/carrinho", routerCarrinho); */
+app.use("/carrinho", routerCarrinho);
 app.use("/imagem", routerImagem);
 
 // aceitar json np corpo(body) da requisicao
