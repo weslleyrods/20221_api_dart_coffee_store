@@ -4,6 +4,8 @@ const cors = require("cors");
 
 // model
 const Cliente = require("../models/cliente");
+const Carrinho = require("../models/carrinho");
+const cliente = require("../models/cliente");
 
 // aceitar json np corpo(body) da requisicao
 router.use(express.json());
@@ -30,6 +32,7 @@ router.get("/:id", (req, res) => {
 //1º criar rota post para login
 router.post("/login", (req, res) => {
   //2º pegar o objeto json do body que possui email e senha
+  console.log(req.body);
   email = req.body.email;
   senha = req.body.senha;
 
@@ -67,42 +70,59 @@ router.post("/login", (req, res) => {
 router.post("/cadastro", (req, res) => {
   // cadastrar um usuario
   console.log(req.body);
-  const cliente = new Cliente({
-    //...req.body
-    nome: req.body.nome,
-    sobrenome: req.body.sobrenome,
-    cpf: req.body.cpf,
-    email: req.body.email,
-    senha: req.body.senha,
-    telefone: req.body.telefone,
-    celular: req.body.celular,
-    endereco: [
-      {
-        logradouro: req.body.logradouro,
-        numero: req.body.numero,
-        bairro: req.body.bairro,
-        cidade: req.body.cidade,
-        estado: req.body.estado,
-        cep: req.body.cep,
-      },
-    ],
-  });
-  Cliente.findOne({ cpf: cliente.cpf }).then((doc) => {
-    if (doc === null) {
-      // retorna null se não existir cliente com o cpf
-      cliente.save().then((clienteInserido) => {
-        res.status(201).json({
-          success: true,
-          data: clienteInserido._id,
+  Cliente.findOne({ $or: [{ email: req.body.email }, { cpf: req.body.cpf }] })
+    .then((doc) => {
+      console.log(doc);
+      if (doc === null) {
+        new Carrinho({
+          valorTotal: "0,00",
+          qtdTotal: "0,00",
+          frete: "0,00",
+          id_podutos: [],
+        })
+          .save()
+          .then((carrinhoCriado) => {
+            console.log(carrinhoCriado);
+            const cliente = new Cliente({
+              nome: req.body.nome,
+              sobrenome: req.body.sobrenome,
+              cpf: req.body.cpf,
+              email: req.body.email,
+              senha: req.body.senha,
+              telefone: req.body.telefone,
+              celular: req.body.celular,
+              endereco: [
+                {
+                  logradouro: req.body.logradouro,
+                  numero: req.body.numero,
+                  bairro: req.body.bairro,
+                  cidade: req.body.cidade,
+                  estado: req.body.estado,
+                  cep: req.body.cep,
+                },
+              ],
+              id_carrinho: carrinhoCriado._id,
+            });
+            cliente.save().then((clienteInserido) => {
+              res.status(201).json({
+                success: true,
+                data: clienteInserido._id,
+              });
+            });
+          });
+      } else {
+        res.status(500).json({
+          success: false,
+          message: "O usuário já pussui cadastro",
         });
-      });
-    } else {
+      }
+    })
+    .catch((err) => {
       res.status(500).json({
         success: false,
-        message: "O usuário já pussui cadastro com este CPF",
+        message: err.message,
       });
-    }
-  });
+    });
 });
 
 // Marcelo

@@ -18,6 +18,7 @@ const clienteSchema = mongoose.Schema({
       cep: { type: String, required: true },
     },
   ],
+  id_carrinho: { type: mongoose.Types.ObjectId, required: true },
 });
 
 module.exports = mongoose.model("Cliente", clienteSchema);
