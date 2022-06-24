@@ -47,6 +47,7 @@ router.post("/login", (req, res) => {
           data: {
             id: doc._id,
             nome: doc.nome,
+            carrinho: doc.id_carrinho,
           },
         });
       } else {
