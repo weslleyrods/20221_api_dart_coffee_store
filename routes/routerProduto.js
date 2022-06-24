@@ -14,7 +14,7 @@ router.get("/", (req, res) => {
   // pegar todos os produtos da base e retornar o json
   Produto.find()
     .then((Produto) => {
-      res.statures(200).json({
+      res.status(200).json({
         success: true,
         data: Produto,
       });
@@ -89,4 +89,5 @@ router.get("/carrinho/:idCarrinho", (req, res) => {
       });
   });
 });
+
 module.exports = router;
