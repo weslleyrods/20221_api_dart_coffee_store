@@ -6,13 +6,6 @@ const Carrinho = require("../models/carrinho");
 
 router.use(cors());
 router.use(express.json());
-/* 
-{ body
-    id_carrinho: sadsajehgqjehfqwgej
-    id_produto: dsaasddsadsadasddsad
-}
-*/
-
 router.put("/add", (req, res) => {
   let idCarrinho = req.body.id_carrinho;
   let idProduto = req.body.id_produto;
@@ -37,11 +30,6 @@ router.put("/add", (req, res) => {
 router.put("/remove", (req, res) => {
   let idCarrinho = req.body.id_carrinho;
   let idProduto = req.body.id_produto;
-  /// profiles.insertOne( { _id: 1, votes: [ 3, 5, 6, 7, 7, 8 ] } )
-
-  // { $pull: { <field1>: <value|condition>}
-
-  //profiles.updateOne( { _id: 1 }, { $pull: { votes: { $gte: 6 } } } )
   Carrinho.updateOne(
     { _id: idCarrinho },
     {

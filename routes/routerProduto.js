@@ -3,6 +3,8 @@ const router = express.Router();
 const cors = require("cors");
 
 const Produto = require("../models/produto");
+const Carrinho = require("../models/carrinho");
+
 router.use(express.json());
 router.use(express.query());
 router.use(cors());
@@ -12,7 +14,7 @@ router.get("/", (req, res) => {
   // pegar todos os produtos da base e retornar o json
   Produto.find()
     .then((Produto) => {
-      res.status(200).json({
+      res.statures(200).json({
         success: true,
         data: Produto,
       });
@@ -63,5 +65,28 @@ router.get("/busca/:busca", (req, res) => {
       });
     });
 });
-// Produto.find({ titulo: /req.params.busca/im })
+
+router.get("/carrinho/:idCarrinho", (req, res) => {
+  let id = req.params.idCarrinho;
+
+  //navegar pelo id do carrinho até o ids dos produtos
+  Carrinho.findOne({ _id: id }).then((docCarrinho) => {
+    let arrayProdutos = docCarrinho.id_produtos;
+    console.log(arrayProdutos);
+
+    Produto.find({ _id: { $in: arrayProdutos } })
+      .then((listaDocsProdutos) => {
+        res.status(200).json({
+          success: true,
+          data: listaDocsProdutos,
+        });
+      })
+      .catch((err) => {
+        res.json({
+          success: false,
+          message: err.message,
+        });
+      });
+  });
+});
 module.exports = router;
