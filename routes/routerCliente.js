@@ -114,7 +114,7 @@ router.post("/cadastro", (req, res) => {
       } else {
         res.status(500).json({
           success: false,
-          message: "O usuário já pussui cadastro",
+          message: "Usuário já possui cadastro.",
         });
       }
     })
